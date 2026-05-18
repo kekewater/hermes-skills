@@ -1,7 +1,7 @@
 ---
 name: hermes-setup-guide
 description: 新手安装和配置Hermes Agent的完整引导。包含Provider配置、API Key获取、代理设置、常见错误排障。适用于新用户首次部署Hermes后的配置步骤。
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Hermes Agent 新手配置引导
@@ -105,9 +105,34 @@ hermes tools list
 **原因：** OpenAI provider没设 `api_mode: openai`。
 **修复：** 在provider配置里加上 `api_mode: openai`。
 
+### ❌ 用 `provider: custom` 连OpenAI报400
+**原因：** custom provider会发自定义参数，OpenAI不认。
+**修复：** 不要用 `provider: custom`，改用 `provider: openai` + `api_mode: openai`。参考上面的配置模板。
+
+### ❌ gpt-image-2 生图报错（chat completions返回500 / responses API说model不存在）
+**原因：** gpt-image-2不走 chat completions 也不走 responses API，它走的是 `/v1/images/generations` 端（跟DALL-E同一个端）。
+**正确调用方式：**
+```bash
+curl -s -X POST https://api.openai.com/v1/images/generations \
+  -H "Authorization: Bearer 你的Key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-image-2-low",    # low(~15s) / medium(~40s) / high(~2min)
+    "prompt": "一只橘猫在书桌前看书",
+    "n": 1,
+    "size": "1024x1024",           # 1536x1024(横) / 1024x1024(方) / 1024x1536(竖)
+    "quality": "low"
+  }'
+```
+返回的是 `data[0].b64_json`，需要 base64 解码存成图片文件。
+
 ### ❌ OpenAI 401 / Auth失败
 **原因：** API Key填错或已过期。
 **修复：** 去 platform.openai.com/api-keys 重新创建Key。
+
+### ❌ gpt-image-2 图片太长没生成出来
+**原因：** 提示词(prompt)太长了，中文建议控制在200字以内。
+**修复：** 缩短prompt，或者拆分成多次生成。也可以降低 quality 为 low（最快~15秒）。
 
 ### ❌ DeepSeek连不上
 **原因：** 国内网络问题或Key失效。
