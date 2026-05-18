@@ -76,3 +76,39 @@ hermes chat -p "..."   # 用默认模型对话
 ```bash
 hermes -s comps-analysis -s dcf-model
 ```
+
+---
+
+## 🌐 网络配置场景
+
+### 场景A：服务器在美国 🇺🇸（你领导的情况）
+直连所有API，**不需要任何代理**。OpenAI / DeepSeek / Anthropic 全通。
+
+### 场景B：服务器在中国国内 🇨🇳
+| 服务 | 直连？ | 方案 |
+|------|--------|------|
+| DeepSeek | ✅ 直连 | 填Key直接用 |
+| 阿里云百炼 | ✅ 直连 | 填Key直接用 |
+| OpenAI | ❌ 被墙 | 需配HTTP代理 |
+| OpenRouter | ❌ 被墙 | 需配HTTP代理 |
+
+国内服务器需要配置代理来访问被墙的API。常见方案：
+1. 自己有翻墙VPS → 搭tinyproxy → 设 `http_proxy` 环境变量
+2. 用国内API中转服务
+
+---
+
+## 技能使用
+
+对话中输入 `/skill <技能名>` 加载技能。常用技能：
+
+| 技能 | 用途 |
+|------|------|
+| `china-stock-data` | A股实时行情/财务数据 |
+| `us-stock-data` | 美股实时行情/财报 |
+| `dcf-model` | DCF估值建模 |
+| `comps-analysis` | 可比公司分析 |
+| `earnings-analysis` | 财报盈利分析 |
+| `daily-investment-report` | 每日投资日报 |
+| `dashscope` | 阿里云TTS语音/生图 |
+| `sec-filings` | SEC EDGAR财报抓取 |
