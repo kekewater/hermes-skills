@@ -1,0 +1,40 @@
+# ============================================================
+# Hermes Agent 配置模板
+# 把你的API Key填到对应的字段，或设到环境变量里
+# ============================================================
+
+model:
+  default: deepseek-v4-flash
+  provider: deepseek
+  base_url: https://api.deepseek.com/v1
+  api_key: ""         # ← 填 DeepSeek API Key (deepseek.com)
+  api_mode: deepseek-v4-flash
+
+providers:
+  deepseek:
+    base_url: https://api.deepseek.com/v1
+    api_key: ""         # ← 同上
+    model: deepseek-v4-flash
+
+  openai:
+    base_url: https://api.openai.com/v1
+    api_key: ""         # ← 填 OpenAI API Key (platform.openai.com)
+    model: gpt-4o
+
+  openrouter:
+    base_url: https://openrouter.ai/api/v1
+    api_key: ""         # ← 填 OpenRouter API Key (openrouter.ai/keys)
+    model: anthropic/claude-sonnet-4
+
+  dashscope:
+    base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+    api_key: ""         # ← 填 阿里云百炼 API Key (dashscope.console.aliyun.com)
+    model: qwen2.5-vl-72b-instruct
+
+fallback_providers: []
+agent:
+  max_turns: 60
+  gateway_timeout: 1800
+  api_max_retries: 3
+  tool_use_enforcement: auto
+  reasoning_effort: medium
