@@ -1,40 +1,42 @@
 # ============================================================
 # Hermes Agent 配置模板
-# 把你的API Key填到对应的字段，或设到环境变量里
+# 填上你的API Key就能用
 # ============================================================
 
 model:
   default: deepseek-v4-flash
   provider: deepseek
+  api_key: ""         # ← 填 DeepSeek API Key (platform.deepseek.com)
   base_url: https://api.deepseek.com/v1
-  api_key: ""         # ← 填 DeepSeek API Key (deepseek.com)
-  api_mode: deepseek-v4-flash
 
 providers:
+  # ⭐ DeepSeek — 国内直连，便宜，日常对话用
   deepseek:
     base_url: https://api.deepseek.com/v1
     api_key: ""         # ← 同上
     model: deepseek-v4-flash
 
+  # 🖼️ OpenAI — 生图用，国内需翻墙
+  # 如果能翻墙: 直接填 Key 即可
+  # 如需HTTP代理: 执行 export http_proxy=http://127.0.0.1:7890 后再启动 Hermes
   openai:
     base_url: https://api.openai.com/v1
     api_key: ""         # ← 填 OpenAI API Key (platform.openai.com)
     model: gpt-4o
 
+  # 🔀 OpenRouter — 接Claude/多模型，国内需翻墙
   openrouter:
     base_url: https://openrouter.ai/api/v1
-    api_key: ""         # ← 填 OpenRouter API Key (openrouter.ai/keys)
+    api_key: ""         # ← 填 OpenRouter Key (openrouter.ai/keys)
     model: anthropic/claude-sonnet-4
 
+  # 🇨🇳 阿里云百炼 — 国内直连，TTS语音合成/生图
   dashscope:
     base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
-    api_key: ""         # ← 填 阿里云百炼 API Key (dashscope.console.aliyun.com)
+    api_key: ""         # ← 填 阿里云百炼 Key
     model: qwen2.5-vl-72b-instruct
 
-fallback_providers: []
 agent:
   max_turns: 60
-  gateway_timeout: 1800
   api_max_retries: 3
-  tool_use_enforcement: auto
   reasoning_effort: medium
