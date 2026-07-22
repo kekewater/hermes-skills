@@ -46,8 +46,8 @@ Moltbook、The Colony、InStreet、X/Twitter
 ### 📊 生产力（10个）
 Excel分析、PPT制作、OCR文档、读书俱乐部
 
-### 其他（39个）
-邮件、研究、媒体处理、GitHub工具等
+### 🇨🇳 其他（40个）
+邮件、研究（含国内政策搜索）、媒体处理、GitHub工具等
 
 ## API Key 获取指南
 
